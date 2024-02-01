@@ -8,15 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private static final Connection conn;
-
-    static {
-        try {
-            conn = Util.getConnection();
-        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final Connection conn = Util.getConnection();
 
     public UserDaoJDBCImpl() {
 
