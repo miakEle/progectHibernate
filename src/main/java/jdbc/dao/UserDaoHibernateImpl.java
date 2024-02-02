@@ -8,15 +8,11 @@ import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserDaoHibernateImpl implements UserDao {
     private Transaction transaction;
-    private final Logger logger;
 
     public UserDaoHibernateImpl() {
-        logger = Logger.getLogger(UserDaoHibernateImpl.class.getName());
     }
 
 
@@ -31,9 +27,9 @@ public class UserDaoHibernateImpl implements UserDao {
                     "age INT, " +
                     "PRIMARY KEY(id));").executeUpdate();
             transaction.commit();
-            logger.log(Level.INFO, "Таблица Users успешно создана");
         } catch (HibernateException e) {
             e.printStackTrace();
+            transaction.rollback();
         }
     }
 
@@ -44,9 +40,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery("DROP TABLE IF EXISTS User")
                     .executeUpdate();
             transaction.commit();
-            logger.log(Level.INFO, "Таблица Users успешно удалена");
         } catch (HibernateException e) {
             e.printStackTrace();
+            transaction.rollback();
         }
 
     }
@@ -58,10 +54,9 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.save(new User(name, lastName, age));
             transaction.commit();
-            logger.log(Level.INFO, "User с именем – {0} добавлен в базу данных", name);
         } catch (HibernateException e) {
             e.printStackTrace();
-           // transaction.rollback();
+            transaction.rollback();
         }
     }
 
@@ -71,10 +66,9 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.delete(session.get(User.class, id));
             transaction.commit();
-            logger.log(Level.INFO, "User с id – {0} удален из базы данных", id);
         } catch (HibernateException e) {
             e.printStackTrace();
-            logger.log(Level.INFO, "User с id – {0} не найден", id);
+            transaction.rollback();
         }
     }
 
@@ -87,7 +81,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
-            //transaction.rollback();
+            transaction.rollback();
         }
         return list;
     }
@@ -98,10 +92,9 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE User").executeUpdate();
             transaction.commit();
-            logger.log(Level.INFO, "Таблица Users успешно очищена");
         } catch (HibernateException e) {
             e.printStackTrace();
-            //transaction.rollback();
+            transaction.rollback();
         }
     }
 }

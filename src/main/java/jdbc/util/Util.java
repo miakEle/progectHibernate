@@ -11,11 +11,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Util {
-    public final static Logger logger = Logger.getLogger(Util.class.getName());
     private static final String url = "jdbc:mysql://localhost:3306/mydb";
     private static final String user = "root";
     private static final String pass = "Kata2024";
@@ -57,11 +55,8 @@ public class Util {
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(url, user, pass);
-            if (!connection.isClosed()) {
-                logger.log(Level.INFO, "Соединение с БД установлено");
-            }
         } catch (SQLException | ClassNotFoundException e) {
-            logger.log(Level.WARNING, "Не удалось создать соединение с БД");
+            e.printStackTrace();
         }
         return connection;
     }
