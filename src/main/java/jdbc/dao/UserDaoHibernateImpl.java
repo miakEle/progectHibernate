@@ -2,8 +2,12 @@ package jdbc.dao;
 
 import jdbc.model.User;
 import jdbc.util.Util;
-import org.hibernate.*;
-import java.util.*;
+import org.hibernate.Transaction;
+import org.hibernate.Session;
+import org.hibernate.HibernateException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class UserDaoHibernateImpl implements UserDao {
 

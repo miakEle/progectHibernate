@@ -2,9 +2,7 @@ package jdbc.service;
 
 import jdbc.dao.UserDao;
 import jdbc.dao.UserDaoHibernateImpl;
-import jdbc.dao.UserDaoJDBCImpl;
 import jdbc.model.User;
-
 import java.util.List;
 
 public class UserServiceImpl implements UserService {

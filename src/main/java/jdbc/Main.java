@@ -1,8 +1,7 @@
 package jdbc;
 import jdbc.dao.UserDao;
 import jdbc.dao.UserDaoHibernateImpl;
-import jdbc.dao.UserDaoJDBCImpl;
-import jdbc.util.Util;
+
 
 import java.sql.SQLException;
 
