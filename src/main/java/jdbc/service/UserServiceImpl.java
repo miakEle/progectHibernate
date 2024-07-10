@@ -6,35 +6,40 @@ import jdbc.model.User;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    UserDao userDaoHibernate = new UserDaoHibernateImpl();
+    UserDao userDao = new UserDaoHibernateImpl();
 
     @Override
     public void createUsersTable() {
-        userDaoHibernate.createUsersTable();
+        userDao.createUsersTable();
     }
 
+    @Override
     public void dropUsersTable() {
-        userDaoHibernate.dropUsersTable();
+        userDao.dropUsersTable();
     }
 
+    @Override
     public void saveUser(String name, String lastName, byte age) {
-        userDaoHibernate.saveUser(name, lastName, age);
+        userDao.saveUser(name, lastName, age);
         System.out.println("User с именем – " + name + " добавлен в базу данных");
     }
 
+    @Override
     public void removeUserById(long id) {
-        userDaoHibernate.removeUserById(id);
+        userDao.removeUserById(id);
     }
 
+    @Override
     public List<User> getAllUsers() {
-        List<User> users =  userDaoHibernate.getAllUsers();;
+        List<User> users =  userDao.getAllUsers();;
         for (User user : users) {
             System.out.println(user);
         }
         return users;
     }
 
+    @Override
     public void cleanUsersTable() {
-        userDaoHibernate.cleanUsersTable();
+        userDao.cleanUsersTable();
     }
 }
